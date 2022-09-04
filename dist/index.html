@@ -9,18 +9,27 @@
 	<title>Document</title>
 </head>
 <body>
+	<header class="header">
+		<div class="container header__container">
+			<h1 class="header__logo">Library</h1>
+			<button class="header__login">Log In</button>
+		</div>
+	</header>
 	<main class="main">
 		<div class="container main__container">
-			<section class="main__add-section add-section">
-				<form action="" class="add-section__form">
-					<input type="text" class="add-section__name-input">
+			<section class="main__add-section add-section section">
 					<button type="submit" class="add-section__submit-button">NEW BOOK</button>
-				</form>
 			</section>
-			<section class="main__books-section books-section">
+			<section class="main__books-section books-section section">
 				<ul id="booksList" class="books-section__list"></ul>
 			</section>
 		</div>
 	</main>
+	<div class="dialog">
+		<div class="dialog__content">
+			<input type="text" class="title"><input type="text" class="author"><input type="checkbox" class="read">
+			<div class="dialog__footer"><button class="ok dialog__ok">Add</button><button class="cancel dialog__cancel">Cancel</button></div>
+		</div>
+	</div>
 </body>
 </html>
