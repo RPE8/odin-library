@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,600;1,700&family=Playfair+Display:wght@400;900&display=swap');
+
+:root {
+	--color-1: #F7F6DC;
+	--color-2: #B1D7B4;
+	--color-3: #7FB77E;
+	--color-5: #69a567;
+	--color-4: #FFC090;
+	--header-height: 6rem;
+	--bg-color: var(--color-1);
+	--header-bg-color: var(--color-3);
+	--header-font: "Montserrat", sans-serif;
+	--header-color: var(--color-1);
+	--header-shadow-color: var(--color-5);
+	--header-login-h-padding: 1.1rem;
+	--header-login-v-padding: .8rem;
+	--header-login-padding: var(--header-login-v-padding) var(--header-login-h-padding);
+	--header-login-underline-width: 15%;
+	--header-login-underline-width-highlight: calc(100% - var(--header-login-h-padding) * 2);
+	--header-login-bg-color: var(--color-1);
+	--header-login-underline-color: var(--color-2);
+	--header-login-underline-highlight: var(--color-4) 
+}
+
+*, *::before, *::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: var(--bg-color);
+
+}
+
+.dialog {
+	display: none;
+}
+
+.header {
+	display: flex;
+	justify-content: center;
+	min-height: var(--header-height);
+	background-color: var(--header-bg-color);
+	font-family: var(--header-font);
+	font-weight: 700;
+	color: var(--header-color);
+	box-shadow: var(--header-shadow-color) 0px 3px 5px;
+}
+
+.header__logo {
+	font-size: 3rem;
+}
+
+.header__login {
+	position: relative;
+	background-color: var(--header-login-bg-color);
+	border: 0;
+	padding: var(--header-login-padding);
+	font-family: inherit;
+	font-size: 1.1rem;
+	font-weight: 600;
+	border-radius: .3rem;
+	color: #69a567;
+}
+
+.header__login::after {
+  background-color: var(--header-login-underline-color);
+  display: block;
+  content: "";
+  height: 3px;
+  width: 15%;
+  position: absolute;
+	transition: all .5s;
+}
+
+.header__login:hover::after {
+  background-color: var(--header-login-underline-highlight);
+  width: var(--header-login-underline-width-highlight);
+  position: absolute;
+}
+
+.header__container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.main {
+	display: flex;
+	justify-content: center;
+	padding: 2rem;
+	height: calc(100% - var(--header-height));
+}
+.container {
+	max-width: 1280px;
+	width: 100%;
+}
+
+.section {
+	width: 100%;
+	
+	border-radius: .5rem;
+	padding: 1rem;
+}
+
+.main__add-section {
+	margin-bottom: 2rem;;
+}
+
+.add-section__form {
+}
