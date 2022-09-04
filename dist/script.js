@@ -9,7 +9,8 @@ const createBookDisplayItem = (book) => {
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
     removeButton.addEventListener("click", (event) => {
-        console.log(book, "remove");
+        books = books.filter(currBook => currBook !== book);
+        updateBooksList();
     });
     return [title, author, removeButton];
 };
@@ -27,6 +28,10 @@ const displayBooks = (list, books) => {
         items.push(createListItem(createBookDisplayItem(book)));
         return items;
     }, []));
+};
+const updateBooksList = () => {
+    booksList?.replaceChildren();
+    displayBooks(booksList, books);
 };
 books = addBook(books, { title: "test", author: "test" });
 books = addBook(books, { title: "test2", author: "test2" });

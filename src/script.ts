@@ -22,7 +22,8 @@ const createBookDisplayItem: BookDisplayItemCreator = (book) => {
 		const removeButton = document.createElement("button");
 		removeButton.textContent = "Remove";
 		removeButton.addEventListener("click", (event) => {
-			console.log(book, "remove");
+			books = books.filter(currBook => currBook !== book);
+			updateBooksList();
 		})
 
 		return [title, author, removeButton];
@@ -40,10 +41,16 @@ const displayBooks: BooksDisplayer = (list, books) => {
 		console.log("err");
 		return;
 	}
+
 	list.append(...books.reduce((items: HTMLLIElement[], book: Book): HTMLLIElement[] => {
 		items.push(createListItem(createBookDisplayItem(book)))
 		return items;
 	}, []));
+}
+
+const updateBooksList = () => {
+	booksList?.replaceChildren();
+	displayBooks(booksList, books);
 }
 
 books = addBook(books, {title: "test", author: "test"});
