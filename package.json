@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "typescript": "^4.8.2"
+  },
+  "name": "odin-library",
+  "description": "Part of \"The Odin Project\": Library",
+  "version": "1.0.0",
+  "main": "./dist/index.html",
+  "scripts": {
+    "build": "tsc --build",
+	"watch": "tsc --watch"
+  },
+  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RPE8/odin-library.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RPE8/odin-library/issues"
+  },
+  "homepage": "https://github.com/RPE8/odin-library#readme"
+}
