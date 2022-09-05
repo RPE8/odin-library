@@ -6,6 +6,7 @@
 	--color-3: #7FB77E;
 	--color-4: #FFC090;
 	--color-5: #b1af95;
+	--color-6: #e7e7d0;
 	--header-height: 6rem;
 	--bg-color: var(--color-1);
 	--header-bg-color: var(--color-3);
@@ -19,7 +20,9 @@
 	--header-login-underline-width-highlight: calc(100% - var(--header-login-h-padding) * 2);
 	--header-login-bg-color: var(--color-1);
 	--header-login-underline-color: var(--color-2);
-	--header-login-underline-highlight: var(--color-4) 
+	--header-login-underline-highlight: var(--color-4);
+	--add-book-color: var(--color-3);
+	--add-book-hover: var(--color-6);
 }
 
 *, *::before, *::after {
@@ -111,6 +114,21 @@ body {
 	display: flex;
 	justify-content: center;
 	margin-bottom: 2rem;
+}
+
+.add-section__submit-button {
+	background-color: unset;
+	border: 0;
+	border-radius: .5rem;
+	font-size: 1.8rem;
+	color: var(--add-book-color);
+	font-weight: 700;
+	padding: 1rem 1.3rem;
+	transition: background-color 0.4s;
+}
+
+.add-section__submit-button:hover {
+	background-color: var(--add-book-hover);
 }
 
 .add-section__form {
