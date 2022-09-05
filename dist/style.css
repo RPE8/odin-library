@@ -131,5 +131,11 @@ body {
 	background-color: var(--add-book-hover);
 }
 
-.add-section__form {
+.books-section__list {
+	list-style-type: none;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
+	justify-items: center;
 }
+
