@@ -154,6 +154,18 @@ body {
 	justify-content: space-between;
 }
 
+.books-section__title {
+	font-family: Montserrat;
+	font-size: 1.7rem;
+	font-weight: 600;
+}
+
+.books-section__author {
+	font-family: Montserrat;
+	font-size: 1.5rem;
+	font-weight: 500;
+}
+
 .books-section__buttons-container {
 	margin-top: 1rem;
 	display: flex;
@@ -169,9 +181,15 @@ body {
 	font-size: 1.2rem;
 }
 
+
 .books-section__read-button {
 	background-color: #7E9BB7;
 }
+
+.book-button--read{
+	background-color: #B79A7E;
+}
+
 
 .books-section__remove-button {
 	background-color: #B67EB7;
