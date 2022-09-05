@@ -37,7 +37,7 @@ const createBookDisplayItem: BookDisplayItemCreator = (book) => {
 			<h1 class="books-section__title title">${book.title}</h1>
 			<h2 class="books-section__author author">${book.author}</h2>
 			<button class="books-section__read-button button ${book.read ? "read" : "unread"}">Read</button>
-			<button class="books-section__remove-button button>Remove</button>
+			<button class="books-section__remove-button button">Remove</button>
 		</li>`
 
 		return template.content.firstChild as HTMLLIElement;
