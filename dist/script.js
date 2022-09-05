@@ -9,6 +9,11 @@ const generateId = () => {
 const booksList = document.getElementById("booksList");
 let books = [];
 const idGenerator = numberGenrator();
+const findBook = (books, book2Find) => books.find((book) => {
+    if (typeof book2Find === "string")
+        return book2Find === book.id;
+    return book2Find === book;
+});
 const removeBook = (books, book2Delete) => books.filter((book) => {
     if (typeof book2Delete === "string")
         return book2Delete !== book.id;
@@ -31,15 +36,31 @@ const handleBookRemove = (event) => {
     const target = event.target;
     const currentTarget = event.currentTarget;
     const classList = target.classList;
-    if (target.classList.contains("books-section__remove-button")) {
-        if (!currentTarget.dataset.id)
-            return;
-        books = removeBook(books, currentTarget.dataset.id);
+    const id = currentTarget.dataset.id;
+    if (!id)
+        return;
+    if (classList.contains("books-section__remove-button")) {
+        books = removeBook(books, id);
         updateBooksList();
         return;
     }
-    if (target.classList.contains("books-section__read-button")) {
-        console.log(target);
+    if (classList.contains("books-section__read-button")) {
+        if (classList.contains("book-button--read")) {
+            classList.remove("read");
+            classList.add("unread");
+            target.textContent = "Not Read";
+        }
+        else {
+            classList.remove("unread");
+            classList.add("read");
+            target.textContent = "Read";
+        }
+        const book = findBook(books, id);
+        if (!book) {
+            return;
+        }
+        book.read = !book.read;
+        updateBooksList();
         return;
     }
 };

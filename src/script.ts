@@ -12,6 +12,7 @@ type BookId = string;
 type IdGenerator = () => BookId;
 type BookAdder = (books: Book[], book: Book) => Book[];
 type BookRemover = (books: Book[], book: Book | BookId) => Book[];
+type BookFinder = (books: Book[], book: Book | BookId) => Book | undefined;
 type BooksList = HTMLElement | null;
 type BooksDisplayer = (list: BooksList, books: Book[]) => void;
 type BookDisplayItemCreator = (book: Book) => HTMLLIElement;
@@ -30,6 +31,12 @@ const generateId: IdGenerator = () => {
 const booksList: BooksList = document.getElementById("booksList");
 let books: Book[] = [];
 const idGenerator = numberGenrator();
+
+
+const findBook: BookFinder = (books, book2Find) => books.find((book) => {
+	if (typeof book2Find === "string") return book2Find === book.id;
+	return book2Find === book;
+});
 
 const removeBook: BookRemover = (books, book2Delete) => books.filter((book) => {
 	if (typeof book2Delete === "string") return book2Delete !== book.id;
@@ -56,14 +63,33 @@ const handleBookRemove = (event: Event): void => {
 	const target = event.target as HTMLElement;
 	const currentTarget = event.currentTarget as HTMLElement;
 	const classList = target.classList;
-	if (target.classList.contains("books-section__remove-button")) {
-		if (!currentTarget.dataset.id) return;
-		books = removeBook(books, currentTarget.dataset.id);
+	const id = currentTarget.dataset.id
+	if (!id) return;
+	if (classList.contains("books-section__remove-button")) {
+		books = removeBook(books, id);
 		updateBooksList();
 		return;
 	}
-	if (target.classList.contains("books-section__read-button")) {
-		console.log(target)
+	if (classList.contains("books-section__read-button")) {
+		if (classList.contains("book-button--read")) {
+			classList.remove("read");
+			classList.add("unread");
+			target.textContent = "Not Read";
+		} else {
+			classList.remove("unread");
+			classList.add("read");
+			target.textContent = "Read";
+		}
+
+		const book = findBook(books, id);
+
+		if (!book) {
+			return;
+		}
+		
+		book.read = !book.read;
+
+		updateBooksList();
 		return;
 	}
 }
