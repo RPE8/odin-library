@@ -26,6 +26,7 @@
 	--book-tile-bg-color: var(--color-3);
 	--book-tile-shadow-color: var(--color-5);
 	--book-font-color: var(--color-1);
+	--dialog-bg-color: var(--color-1);
 }
 
 *, *::before, *::after {
@@ -44,7 +45,18 @@ body {
 }
 
 .dialog {
-	display: none;
+	position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+	width: min(80%, 300px);
+	height: min(50%, 500px);
+	background-color: var(--dialog-bg-color);
+}
+
+.dialog__content {
+	display: flex;
+	flex-direction: column;
 }
 
 .header {
