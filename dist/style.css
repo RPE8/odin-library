@@ -7,6 +7,10 @@
 	--color-4: #FFC090;
 	--color-5: #b1af95;
 	--color-6: #e7e7d0;
+	--color-7: #69a567;
+	--color-8: #7E9BB7;
+	--color-9: #B79A7E;
+	--color-10: #B67EB7;
 	--header-height: 6rem;
 	--bg-color: var(--color-1);
 	--header-bg-color: var(--color-3);
@@ -19,6 +23,7 @@
 	--header-login-underline-width: 15%;
 	--header-login-underline-width-highlight: calc(100% - var(--header-login-h-padding) * 2);
 	--header-login-bg-color: var(--color-1);
+	--header-login-font-color: var(--color-7);
 	--header-login-underline-color: var(--color-2);
 	--header-login-underline-highlight: var(--color-4);
 	--add-book-color: var(--color-3);
@@ -26,6 +31,9 @@
 	--book-tile-bg-color: var(--color-3);
 	--book-tile-shadow-color: var(--color-5);
 	--book-font-color: var(--color-1);
+	--book-not-read-bg-color: var(--color-8);
+	--book-read-bg-color: var(--color-9);
+	--book-remove-bg-color: var(--color-10);
 	--dialog-bg-color: var(--color-1);
 }
 
@@ -54,7 +62,7 @@ body {
 	background-color: var(--dialog-bg-color);
 }
 
-.dialog__content {
+.dialog__form {
 	display: flex;
 	flex-direction: column;
 }
@@ -84,7 +92,7 @@ body {
 	font-size: 1.1rem;
 	font-weight: 600;
 	border-radius: .3rem;
-	color: #69a567;
+	color: var(--header-login-font-color);
 }
 
 .header__login::after {
@@ -195,16 +203,15 @@ body {
 
 
 .books-section__read-button {
-	background-color: #7E9BB7;
+	background-color: var(--book-not-read-bg-color);
 }
 
 .book-button--read{
-	background-color: #B79A7E;
+	background-color: var(--book-read-bg-color);
 }
 
-
 .books-section__remove-button {
-	background-color: #B67EB7;
+	background-color: var(--book-remove-bg-color);
 }
 
 
