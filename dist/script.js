@@ -88,9 +88,19 @@ const titleInput = document.querySelector(".dialog__title");
 const authorInput = document.querySelector(".dialog__author");
 const finishedCheckbox = document.querySelector(".dialog__read");
 const form = document.querySelector(".dialog__form");
-newBookButton?.addEventListener("click", () => {
+const openAddDialog = () => {
     dialog?.classList.toggle("dialog--closed");
     dialogOverlay?.classList.toggle("dialog-overlay--closed");
+};
+const closeAddDialog = () => {
+    dialog?.classList.toggle("dialog--closed");
+    dialogOverlay?.classList.toggle("dialog-overlay--closed");
+    titleInput.value = "";
+    authorInput.value = "";
+    finishedCheckbox.checked = false;
+};
+newBookButton?.addEventListener("click", () => {
+    openAddDialog();
 });
 addButton?.addEventListener("click", (event) => {
     event.preventDefault();
@@ -107,6 +117,12 @@ addButton?.addEventListener("click", (event) => {
             id: generateId()
         });
         updateBooksList();
+        closeAddDialog();
+    }
+});
+document.addEventListener('keyup', function (event) {
+    if (event.key === "Escape") {
+        closeAddDialog();
     }
 });
 books = addBook(books, { title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque nobis, sit sapiente quaerat doloribus ipsum odio tempore rem sint deserunt.", author: "test", read: false, id: generateId() });

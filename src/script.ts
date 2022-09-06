@@ -123,9 +123,21 @@ const authorInput = document.querySelector(".dialog__author") as HTMLInputElemen
 const finishedCheckbox = document.querySelector(".dialog__read") as HTMLInputElement;
 const form = document.querySelector(".dialog__form") as HTMLFormElement;
 
-newBookButton?.addEventListener("click", () => {
+const openAddDialog = (): void => {
 	dialog?.classList.toggle("dialog--closed");
 	dialogOverlay?.classList.toggle("dialog-overlay--closed");
+}
+
+const closeAddDialog = (): void => {
+	dialog?.classList.toggle("dialog--closed");
+	dialogOverlay?.classList.toggle("dialog-overlay--closed");
+	titleInput.value = "";
+	authorInput.value = "";
+	finishedCheckbox.checked = false;
+}
+
+newBookButton?.addEventListener("click", () => {
+	openAddDialog();
 });
 
 addButton?.addEventListener("click", (event) => {
@@ -143,8 +155,15 @@ addButton?.addEventListener("click", (event) => {
 			id: generateId()
 		});
 		updateBooksList();
+		closeAddDialog();
 	}
 });
+
+document.addEventListener('keyup', function (event) {
+  if ( event.key === "Escape" )   {
+		closeAddDialog();
+  }
+})
 
 books = addBook(books, {title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque nobis, sit sapiente quaerat doloribus ipsum odio tempore rem sint deserunt.", author: "test", read: false, id: generateId()});
 books = addBook(books, {title: "test2", author: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, sequi.", read: false, id: generateId()});
