@@ -18,18 +18,18 @@
 	<main class="main">
 		<div class="container main__container">
 			<section class="main__add-section add-section section">
-					<button type="submit" class="add-section__submit-button">NEW BOOK</button>
+					<button class="add-section__submit-button">NEW BOOK</button>
 			</section>
 			<section class="main__books-section books-section section">
 				<ul id="booksList" class="books-section__list"></ul>
 			</section>
 		</div>
 	</main>
-	<div class="dialog">
+	<div class="dialog dialog--closed">
 		<form class="dialog__form">
 			<h2 class="dialog_header-title">NEW BOOK</h2>
-			<input type="text" class="dialog__title dialog__input">
-			<input type="text" class="dialog__author dialog__input">
+			<input type="text" required minlength="1" maxlength="40" placeholder="Title" class="dialog__title dialog__input">
+			<input type="text" required minlength="1" maxlength="40" placeholder="Author" class="dialog__author dialog__input">
 			<div class="read-container">
 				<label for="read">Finished reading?</label>
 				<input id="read" type="checkbox" class="dialog__read">
@@ -39,7 +39,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="dialog-overlay">
+	<div class="dialog-overlay dialog-overlay--closed">
 	</div>
 </body>
 </html>

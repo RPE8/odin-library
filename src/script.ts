@@ -114,7 +114,37 @@ const updateBooksList = () => {
 	displayBooks(booksList, books);
 }
 
-const addButton = document.querySelector(".dialog__ok")
+const newBookButton = document.querySelector(".add-section__submit-button");
+const dialog = document.querySelector(".dialog");
+const dialogOverlay = document.querySelector(".dialog-overlay");
+const addButton = document.querySelector(".dialog__ok");
+const titleInput = document.querySelector(".dialog__title") as HTMLInputElement;
+const authorInput = document.querySelector(".dialog__author") as HTMLInputElement;
+const finishedCheckbox = document.querySelector(".dialog__read") as HTMLInputElement;
+const form = document.querySelector(".dialog__form") as HTMLFormElement;
+
+newBookButton?.addEventListener("click", () => {
+	dialog?.classList.toggle("dialog--closed");
+	dialogOverlay?.classList.toggle("dialog-overlay--closed");
+});
+
+addButton?.addEventListener("click", (event) => {
+	event.preventDefault();
+	const validity = form.checkValidity();
+	form.reportValidity();
+	console.log(titleInput?.value);
+	console.log(authorInput?.value);
+	console.log(finishedCheckbox?.checked);
+	if (validity) {
+		books = addBook(books, {
+			title: titleInput.value,
+			author: authorInput.value,
+			read: finishedCheckbox.checked,
+			id: generateId()
+		});
+		updateBooksList();
+	}
+});
 
 books = addBook(books, {title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque nobis, sit sapiente quaerat doloribus ipsum odio tempore rem sint deserunt.", author: "test", read: false, id: generateId()});
 books = addBook(books, {title: "test2", author: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, sequi.", read: false, id: generateId()});
