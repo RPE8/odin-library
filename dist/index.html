@@ -27,17 +27,19 @@
 	</main>
 	<div class="dialog">
 		<form class="dialog__form">
-			<input type="text" class="title">
-			<input type="text" class="author">
-			<div class="">
+			<h2>NEW BOOK</h2>
+			<input type="text" class="dialog__title dialog__input">
+			<input type="text" class="dialog__author dialog__input">
+			<div class="read-container">
 				<label for="read">Finished reading?</label>
-				<input id="read" type="checkbox" class="read">
+				<input id="read" type="checkbox" class="dialog__read dialog__input">
 			</div>
 			<div class="dialog__footer">
 				<button class="ok dialog__ok">Add</button>
-				<button class="cancel dialog__cancel">Cancel</button>
 			</div>
 		</form>
+	</div>
+	<div class="dialog-overlay">
 	</div>
 </body>
 </html>

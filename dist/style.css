@@ -11,6 +11,7 @@
 	--color-8: #7E9BB7;
 	--color-9: #B79A7E;
 	--color-10: #B67EB7;
+	--color-11: #daa278;
 	--header-height: 6rem;
 	--bg-color: var(--color-1);
 	--header-bg-color: var(--color-3);
@@ -34,7 +35,11 @@
 	--book-not-read-bg-color: var(--color-8);
 	--book-read-bg-color: var(--color-9);
 	--book-remove-bg-color: var(--color-10);
-	--dialog-bg-color: var(--color-1);
+	--dialog-bg-color: var(--color-3);
+	--ok-font-color: var(--color-7);
+	--ok-bg-color: var(--color-4);
+	--ok-hover-bg-color: var(--color-11);
+	--ok-hover-font-color: var(--color-2);
 }
 
 *, *::before, *::after {
@@ -52,7 +57,23 @@ body {
 
 }
 
+.dialog-overlay {
+  z-index: 1000;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-overlay--closed, .dialog--closed {
+	display: none;
+}
+
 .dialog {
+	z-index: 1001;
 	position: fixed;
   top: 50%;
   left: 50%;
@@ -60,11 +81,48 @@ body {
 	width: min(80%, 300px);
 	height: min(50%, 500px);
 	background-color: var(--dialog-bg-color);
+	border-radius: 1rem;
+	padding: 2rem;
 }
 
 .dialog__form {
 	display: flex;
 	flex-direction: column;
+	gap: 1rem;
+	height: 100%
+}
+
+.dialog__input {
+	border-radius: .3rem;
+	border: 2px ;
+
+}
+
+.read-container {
+	flex: 1 1 100%;
+}
+
+.dialog__footer {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.dialog__ok {
+	background-color: var(--ok-bg-color);
+	border: 0;
+	color: var(--ok-font-color);
+	padding: 1rem;
+	font-size: 1.3rem;
+	font-weight: 700;
+	border-radius: .5rem;
+	
+}
+
+.dialog__ok:hover {
+	background-color: var(--ok-hover-bg-color);
+	color: var(--ok-hover-font-color);
+	transition: background-color .4s, color 0.4s;
 }
 
 .header {
