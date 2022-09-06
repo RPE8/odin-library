@@ -114,6 +114,8 @@ const updateBooksList = () => {
 	displayBooks(booksList, books);
 }
 
+const addButton = document.querySelector(".dialog__ok")
+
 books = addBook(books, {title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque nobis, sit sapiente quaerat doloribus ipsum odio tempore rem sint deserunt.", author: "test", read: false, id: generateId()});
 books = addBook(books, {title: "test2", author: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, sequi.", read: false, id: generateId()});
 books = addBook(books, {title: "Lorem ipsum dolor sit.", author: "test3", read: true, id: generateId()});
