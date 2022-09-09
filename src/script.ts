@@ -1,62 +1,37 @@
+import {Library} from "./library.js";
+import {Book} from "./book.js";
 
 
-type Book = {
-	title: string;
-	author: string;
-	read: boolean;
-	id: BookId;
-}
-
-type NumberGenerator = (start: number | undefined) => Generator<number>;
-type BookId = string;
-type IdGenerator = () => BookId;
-type BookAdder = (books: Book[], book: Book) => Book[];
-type BookRemover = (books: Book[], book: Book | BookId) => Book[];
-type BookFinder = (books: Book[], book: Book | BookId) => Book | undefined;
 type BooksList = HTMLElement | null;
 type BooksDisplayer = (list: BooksList, books: Book[]) => void;
 type BookDisplayItemCreator = (book: Book) => HTMLLIElement;
 type ListItemCreator = (childs: Node[]) => HTMLLIElement; 
 
-function* numberGenrator(start = 0): Generator {
-	let index = start;
-  while (true)
-    yield index++;
-}
-
-const generateId: IdGenerator = () => {
-	return `id${idGenerator.next().value}`;
-}
 
 const booksList: BooksList = document.getElementById("booksList");
-let books: Book[] = [];
-const idGenerator = numberGenrator();
+const newBookButton = document.querySelector(".add-section__submit-button");
+const dialog = document.querySelector(".dialog");
+const dialogOverlay = document.querySelector(".dialog-overlay");
+const addButton = document.querySelector(".dialog__ok");
+const titleInput = document.querySelector(".dialog__title") as HTMLInputElement;
+const authorInput = document.querySelector(".dialog__author") as HTMLInputElement;
+const finishedCheckbox = document.querySelector(".dialog__read") as HTMLInputElement;
+const form = document.querySelector(".dialog__form") as HTMLFormElement;
 
+const library = new Library();
 
-const findBook: BookFinder = (books, book2Find) => books.find((book) => {
-	if (typeof book2Find === "string") return book2Find === book.id;
-	return book2Find === book;
-});
-
-const removeBook: BookRemover = (books, book2Delete) => books.filter((book) => {
-	if (typeof book2Delete === "string") return book2Delete !== book.id;
-
-	return book2Delete !== book;
-});
-
-const addBook: BookAdder = (books, book) => [...books, book];
 const createBookDisplayItem: BookDisplayItemCreator = (book) => {
-		const template = document.createElement("template");
-		template.innerHTML = `<li class="books-section__list-item list-item" data-id="${book.id}">
-			<h1 class="books-section__title title">${book.title}</h1>
-			<h2 class="books-section__author author">${book.author}</h2>
-			<div class="books-section__buttons-container">
-				<button class="books-section__read-button book-button book-button--${book.read ? "read" : "unread"}">${book.read ? "Read" : "Not Read"}</button>
-				<button class="books-section__remove-button book-button">Remove</button>
-			</div>
-		</li>`
+	const template = document.createElement("template");
+	template.innerHTML = `<li class="books-section__list-item list-item" data-id="${book.getId()}">
+		<h1 class="books-section__title title">${book.getTitle()}</h1>
+		<h2 class="books-section__author author">${book.getAuthor()}</h2>
+		<div class="books-section__buttons-container">
+			<button class="books-section__read-button book-button book-button--${book.getRead() ? "read" : "unread"}">${book.getRead() ? "Read" : "Not Read"}</button>
+			<button class="books-section__remove-button book-button">Remove</button>
+		</div>
+	</li>`
 
-		return template.content.firstChild as HTMLLIElement;
+	return template.content.firstChild as HTMLLIElement;
 }
 
 const handleBookRemove = (event: Event): void => {
@@ -66,7 +41,7 @@ const handleBookRemove = (event: Event): void => {
 	const id = currentTarget.dataset.id
 	if (!id) return;
 	if (classList.contains("books-section__remove-button")) {
-		books = removeBook(books, id);
+		library.removeBook(id);
 		updateBooksList();
 		return;
 	}
@@ -81,13 +56,13 @@ const handleBookRemove = (event: Event): void => {
 			target.textContent = "Read";
 		}
 
-		const book = findBook(books, id);
+		const book = library.findBook(id);
 
 		if (!book) {
 			return;
 		}
 		
-		book.read = !book.read;
+		book.setRead(!book.read);
 
 		updateBooksList();
 		return;
@@ -100,7 +75,6 @@ const displayBooks: BooksDisplayer = (list, books) => {
 		return;
 	}
 
-
 	list.append(...books.reduce((items: HTMLLIElement[], book: Book): HTMLLIElement[] => {
 		const listItem = createBookDisplayItem(book);
 		listItem.addEventListener("click", handleBookRemove)
@@ -111,17 +85,8 @@ const displayBooks: BooksDisplayer = (list, books) => {
 
 const updateBooksList = () => {
 	booksList?.replaceChildren();
-	displayBooks(booksList, books);
+	displayBooks(booksList, library.getBooks());
 }
-
-const newBookButton = document.querySelector(".add-section__submit-button");
-const dialog = document.querySelector(".dialog");
-const dialogOverlay = document.querySelector(".dialog-overlay");
-const addButton = document.querySelector(".dialog__ok");
-const titleInput = document.querySelector(".dialog__title") as HTMLInputElement;
-const authorInput = document.querySelector(".dialog__author") as HTMLInputElement;
-const finishedCheckbox = document.querySelector(".dialog__read") as HTMLInputElement;
-const form = document.querySelector(".dialog__form") as HTMLFormElement;
 
 const openAddDialog = (): void => {
 	dialog?.classList.toggle("dialog--closed");
@@ -148,12 +113,8 @@ addButton?.addEventListener("click", (event) => {
 	console.log(authorInput?.value);
 	console.log(finishedCheckbox?.checked);
 	if (validity) {
-		books = addBook(books, {
-			title: titleInput.value,
-			author: authorInput.value,
-			read: finishedCheckbox.checked,
-			id: generateId()
-		});
+		const book = new Book(titleInput.value, authorInput.value, finishedCheckbox.checked, Book.generateId())
+		library.addBook(book);
 		updateBooksList();
 		closeAddDialog();
 	}
@@ -165,8 +126,12 @@ document.addEventListener('keyup', function (event) {
   }
 })
 
-books = addBook(books, {title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque nobis, sit sapiente quaerat doloribus ipsum odio tempore rem sint deserunt.", author: "test", read: false, id: generateId()});
-books = addBook(books, {title: "test2", author: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, sequi.", read: false, id: generateId()});
-books = addBook(books, {title: "Lorem ipsum dolor sit.", author: "test3", read: true, id: generateId()});
-displayBooks(booksList, books);
+library.addBook(new Book(
+	"Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque nobis, sit sapiente quaerat doloribus ipsum odio tempore rem sint deserunt.", 
+	"test", 
+	false,
+	Book.generateId()
+));
+
+updateBooksList();
 
